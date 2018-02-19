@@ -10,7 +10,7 @@ build:
   verbosity: minimal
 
 test_script:
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full `".\test\UnitTest\SCIQuoting.Webapi.Test\SCIQuoting.Webapi.Test.csproj`" " -filter:"+[*]* -[*.Tests*]*" -oldStyle -register:user -output:"OpenCover.xml";
+  - OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full `".\test\UnitTest\SCIQuoting.Webapi.Test\SCIQuoting.Webapi.Test.csproj`" " -filter:"+[*]* -[*.Tests*]*" -oldStyle -output:"OpenCover.xml"
   - codecov -f .\OpenCover.xml -t $(codecov_token)
  
 branches:
