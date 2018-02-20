@@ -22,13 +22,13 @@ namespace SCIQuoting.Webapi.Test
         }
 
         [Fact]
-        public void Return_New_Id()
+        public async void Return_New_Id()
         {
             var ctrl = new QuotingRequestController(_eventBus.Object, _repository.Object);
             ctrl.ControllerContext.HttpContext = _contextHttpMock.Object;
-            var actionResult = ctrl.Post(new InsuranceQuotingRequest());
-            var viewResult = Assert.IsType<ViewResult>(actionResult);
-            Assert.IsAssignableFrom<Guid>(viewResult.ViewData.Model);
+            var actionResult = await ctrl.Post(new InsuranceQuotingRequest());
+            var res = Assert.IsType<OkObjectResult>(actionResult);
+            Assert.IsAssignableFrom<Guid>(res.Value);
         }
     }
 }

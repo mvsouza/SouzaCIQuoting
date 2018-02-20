@@ -22,7 +22,7 @@ namespace SCIQuoting.Webapi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]InsuranceQuotingRequest value)
         {
-            throw new NotImplementedException();
+            return Ok(Guid.NewGuid());
         }
     }
 }
