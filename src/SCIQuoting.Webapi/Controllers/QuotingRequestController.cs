@@ -24,5 +24,11 @@ namespace SCIQuoting.Webapi.Controllers
         {
             return Ok(Guid.NewGuid());
         }
+        // POST api/values
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok("Ieie");
+        }
     }
 }

@@ -264,3 +264,4 @@ pub/
 #OpenCover results
 OpenCover.xml
 .env
+src/SCIQuoting.Webapi/appsettings.Development.json
