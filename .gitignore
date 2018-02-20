@@ -263,3 +263,4 @@ pub/
 
 #OpenCover results
 OpenCover.xml
+.env
