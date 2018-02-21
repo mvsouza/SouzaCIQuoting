@@ -30,6 +30,8 @@ namespace SCIQuoting.Webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.Configure<QuotingSettings>(Configuration);
+
             services.AddMvc();
 
             
@@ -38,7 +40,10 @@ namespace SCIQuoting.Webapi
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
                 var factory = new ConnectionFactory()
                 {
-                    HostName = Configuration["EventBusConnection"]
+                    //HostName = Configuration["EventBusConnection"],
+                    //Port = int.Parse(Configuration["EventBusPort"]),
+                    //VirtualHost = Configuration["VHost"]
+                    Uri = new Uri(Configuration["EventBusConnection"].Replace("amqp://", "amqps://"))
                 };
                 if (!string.IsNullOrEmpty(Configuration["EventBusUserName"]))
                 {
@@ -58,8 +63,6 @@ namespace SCIQuoting.Webapi
 
 
             RegisterEventBus(services);
-
-            services.Configure<QuotingSettings>(Configuration);
 
             services.AddTransient<IInsuranceQuotingRequestRepository, InsuranceQuotingRequestRepository>();
 

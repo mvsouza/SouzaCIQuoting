@@ -19,11 +19,11 @@ namespace SCIQuoting.Webapi
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
-                    config.AddEnvironmentVariables();
+                    config.AddJsonFile("appsettings.json");
                 })
+                .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, builder) =>
                 {
                     builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
