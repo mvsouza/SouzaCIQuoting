@@ -17,6 +17,7 @@ using SCIQuoting.Webapi.Infrastructure.RabbitMQ;
 using SCIQuoting.Webapi.Infrastructure.Repositories;
 using SCIQuoting.Webapi.IntegrationEvents.EventHandling;
 using SCIQuoting.Webapi.IntegrationEvents.Events;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SCIQuoting.Webapi
 {
@@ -63,6 +64,17 @@ namespace SCIQuoting.Webapi
                 return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
             });
 
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "Ordering HTTP API",
+                    Version = "v1",
+                    Description = "The Ordering Service HTTP API",
+                    TermsOfService = "Terms Of Service"
+                });
+            });
 
             RegisterEventBus(services);
 
@@ -82,8 +94,16 @@ namespace SCIQuoting.Webapi
                 app.UseDeveloperExceptionPage();
             }
 
+            var pathBase = Configuration["PATH_BASE"];
             app.UseMvc();
             app.UseMvcWithDefaultRoute();
+
+            app.UseSwagger()
+               .UseSwaggerUI(c =>
+               {
+                   c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Ordering.API V1");
+               });
+
             ConfigureEventBus(app);
         }
         private void RegisterEventBus(IServiceCollection services)
