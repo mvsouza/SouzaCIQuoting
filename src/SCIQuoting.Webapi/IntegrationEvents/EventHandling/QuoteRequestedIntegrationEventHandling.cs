@@ -17,6 +17,7 @@ namespace SCIQuoting.Webapi.IntegrationEvents.EventHandling
 
         public async Task Handle(QuoteRequestedIntegrationEvent @event)
         {
+            var InsurenceQuoting = _repository.GetAsync(@event.Id);
         }
     }
 }

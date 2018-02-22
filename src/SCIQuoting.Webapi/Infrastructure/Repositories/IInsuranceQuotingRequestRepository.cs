@@ -6,6 +6,6 @@ namespace SCIQuoting.Webapi.Infrastructure.Repositories{
     public interface IInsuranceQuotingRequestRepository
     {
         Task<InsuranceQuotingRequest> GetAsync(Guid insurenceId);
-        Task UpdateAsync(InsuranceQuotingRequest quoting);
+        Task AddOrUpdateAsync(InsuranceQuotingRequest quoting);
     }
 }

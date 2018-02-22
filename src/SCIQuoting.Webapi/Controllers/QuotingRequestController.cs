@@ -24,7 +24,7 @@ namespace SCIQuoting.Webapi.Controllers
         public async Task<IActionResult> Post([FromBody]InsuranceQuotingRequest value)
         {
             value.Id = Guid.NewGuid();
-            await _repository.UpdateAsync(value);
+            await _repository.AddOrUpdateAsync(value);
             _eventBus.Publish(new QuoteRequestedIntegrationEvent(
                 value.Id 
             ));

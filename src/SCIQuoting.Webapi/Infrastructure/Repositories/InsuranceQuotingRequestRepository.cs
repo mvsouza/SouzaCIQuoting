@@ -33,12 +33,17 @@ namespace SCIQuoting.Webapi.Infrastructure.Repositories
                                  .FirstOrDefaultAsync();
         }
 
-        public async Task UpdateAsync(InsuranceQuotingRequest quote)
+        public async Task AddOrUpdateAsync(InsuranceQuotingRequest quote)
         {
-            await _context.InsuranceQuotingRequest.ReplaceOneAsync(
-                doc => doc.Id == quote.Id,
-                quote,
-                new UpdateOptions { IsUpsert = true });
+            if(_context.InsuranceQuotingRequest.Count(doc => doc.Id == quote.Id)>0){
+                await _context.InsuranceQuotingRequest.ReplaceOneAsync(
+                    doc => doc.Id == quote.Id,
+                    quote,
+                    new UpdateOptions { IsUpsert = true });
+            }
+            else{
+                await _context.InsuranceQuotingRequest.InsertOneAsync(quote);
+            }
         }
 
     }

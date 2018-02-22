@@ -15,6 +15,8 @@ using SCIQuoting.Webapi.Infrastructure.EventBus;
 using SCIQuoting.Webapi.Infrastructure.EventBus.Abstractions;
 using SCIQuoting.Webapi.Infrastructure.RabbitMQ;
 using SCIQuoting.Webapi.Infrastructure.Repositories;
+using SCIQuoting.Webapi.IntegrationEvents.EventHandling;
+using SCIQuoting.Webapi.IntegrationEvents.Events;
 
 namespace SCIQuoting.Webapi
 {
@@ -43,7 +45,7 @@ namespace SCIQuoting.Webapi
                     //HostName = Configuration["EventBusConnection"],
                     //Port = int.Parse(Configuration["EventBusPort"]),
                     //VirtualHost = Configuration["VHost"]
-                    Uri = new Uri(Configuration["EventBusConnection"].Replace("amqp://", "amqps://"))
+                    Uri = new Uri(Configuration["EventBusConnection"])//.Replace("amqp://", "amqps://"))
                 };
                 if (!string.IsNullOrEmpty(Configuration["EventBusUserName"]))
                 {
@@ -82,6 +84,7 @@ namespace SCIQuoting.Webapi
 
             app.UseMvc();
             app.UseMvcWithDefaultRoute();
+            ConfigureEventBus(app);
         }
         private void RegisterEventBus(IServiceCollection services)
         {
@@ -104,6 +107,16 @@ namespace SCIQuoting.Webapi
             });
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
+            services.AddTransient<QuoteRequestedIntegrationEventHandler>();
+        }
+
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<QuoteRequestedIntegrationEvent, QuoteRequestedIntegrationEventHandler>();
         }
     }
 }
