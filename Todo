@@ -1,8 +1,7 @@
 My tasks:
-  Implement calulation of Vehicle Base Price
-  Create Dummy Repository for BasePrice
   Api GET for Quote status
   Api GET for the quote information
+  Create mongodb colletion for Base price table
+  Create seeding for  Base price table
   Save the costumer on a new collection
   Create heroku deployment
-  Add ILogger
