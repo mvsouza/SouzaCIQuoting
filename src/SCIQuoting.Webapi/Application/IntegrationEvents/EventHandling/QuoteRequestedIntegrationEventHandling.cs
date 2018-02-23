@@ -15,15 +15,15 @@ namespace SCIQuoting.Webapi.Application.IntegrationEvents.EventHandling
 
         public QuoteRequestedIntegrationEventHandler(IInsuranceQuotingRequestRepository repository, IMediator _mediator)
         {
-            _mediator = _mediator;
-            _repository = repository;
+            this._mediator = _mediator;
+            this._repository = repository;
         }
 
         public async Task Handle(QuoteRequestedIntegrationEvent @event)
         {
-            var InsurenceQuoting = await _repository.GetAsync(@event.Id);
+            var InsurenceQuoting = await _repository.GetAsync(@event.RequestKey);
             var veh = InsurenceQuoting.Vehicle;
-            var calculateRequest = new CalculateIsuranceBasePrice(veh.VehicleType, veh.ManufacturingYear, veh.Model, veh.Make);
+            var calculateRequest = new CalculateIsuranceBasePrice(veh.VehicleType, int.Parse(veh.ManufacturingYear), veh.Model, veh.Make);
             var commandResult  = _mediator.Send(calculateRequest);
         }
     }

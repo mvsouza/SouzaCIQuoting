@@ -18,13 +18,13 @@ namespace SCIQuoting.Webapi.Application.Models{
             this.PhoneNumber = phoneNumber;
         }
 
-        public int SSN { get; private set; }
+        public int SSN { get; set; }
         public string Name { get; set; }
-        public Gender Gender { get; private set; }
-        public DateTime Birthdate { get; private set; }
-        public Address Address { get; private set; }
-        public string Email {get; private set;}
-        public string PhoneNumber  {get; private set;}
+        public Gender Gender { get; set; }
+        public DateTime Birthdate { get; set; }
+        public Address Address { get; set; }
+        public string Email {get; set;}
+        public string PhoneNumber  {get; set;}
         public bool IsFemale{ get { return Gender == Gender.Female; } }
         public int Age{
             get{

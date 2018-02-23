@@ -1,4 +1,5 @@
 using System;
+using MongoDB.Bson;
 
 namespace SCIQuoting.Webapi.Infrastructure.EventBus.Events
 {
@@ -6,11 +7,12 @@ namespace SCIQuoting.Webapi.Infrastructure.EventBus.Events
     {
         public IntegrationEvent()
         {
-            Id = Guid.NewGuid();
+            Key = Guid.NewGuid();
             CreationDate = DateTime.UtcNow;
         }
 
-        public Guid Id  { get; }
+        public ObjectId Id { get; set; }
+        public Guid Key  { get; }
         public DateTime CreationDate { get; }
     }
 }

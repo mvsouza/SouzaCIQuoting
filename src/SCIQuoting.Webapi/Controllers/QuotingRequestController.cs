@@ -24,12 +24,12 @@ namespace SCIQuoting.Webapi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]InsuranceQuotingRequest value)
         {
-            value.Id = Guid.NewGuid();
+            value.Key = Guid.NewGuid();
             await _repository.AddOrUpdateAsync(value);
             _eventBus.Publish(new QuoteRequestedIntegrationEvent(
-                value.Id 
+                value.Key 
             ));
-            return Ok(value.Id );
+            return Ok(value.Key );
         }
     }
 }

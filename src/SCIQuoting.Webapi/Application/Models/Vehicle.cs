@@ -6,9 +6,9 @@ namespace SCIQuoting.Webapi.Application.Models{
         Other = 4
     }
     public class Vehicle{
-        public VehicleType VehicleType { get; private set; }
-        public int ManufacturingYear { get; private set; }
-        public string Model { get; private set; }
-        public string Make { get; private set; }
+        public VehicleType VehicleType { get; set; }
+        public string ManufacturingYear { get; set; }
+        public string Model { get; set; }
+        public string Make { get; set; }
     }
 }

@@ -25,19 +25,18 @@ namespace SCIQuoting.Webapi.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<InsuranceQuotingRequest> GetAsync(Guid insurenceId)
+        public async Task<InsuranceQuotingRequest> GetAsync(Guid insurenceKey)
         {
-            var filter = Builders<InsuranceQuotingRequest>.Filter.Eq("Id", insurenceId);
-            return await _context.InsuranceQuotingRequest
-                                 .Find(filter)
-                                 .FirstOrDefaultAsync();
+            var list = _context.InsuranceQuotingRequest
+                                 .Find(doc => true).ToList();
+            return list.Find(i => i.Key == insurenceKey);
         }
 
         public async Task AddOrUpdateAsync(InsuranceQuotingRequest quote)
         {
-            if(_context.InsuranceQuotingRequest.Count(doc => doc.Id == quote.Id)>0){
+            if(await GetAsync(quote.Key) != null){
                 await _context.InsuranceQuotingRequest.ReplaceOneAsync(
-                    doc => doc.Id == quote.Id,
+                    doc => doc.Key == quote.Key,
                     quote,
                     new UpdateOptions { IsUpsert = true });
             }

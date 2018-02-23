@@ -9,9 +9,9 @@ namespace SCIQuoting.Webapi.Application.IntegrationEvents.Events
     // An Integration Event is an event that can cause side effects to other microsrvices, Bounded-Contexts or external systems.
     public class QuoteRequestedIntegrationEvent : IntegrationEvent
     {
-        public Guid RequestId{ get; set; }
+        public Guid RequestKey{ get; set; }
 
-        public QuoteRequestedIntegrationEvent(Guid requestId)
-            => RequestId = requestId;            
+        public QuoteRequestedIntegrationEvent(Guid requestKey)
+            => RequestKey = requestKey;            
     }
 }

@@ -27,15 +27,15 @@ namespace SCIQuoting.Webapi.Infrastructure.Idempotency
             return request != null;
         }
 
-        public async Task CreateRequestForCommandAsync<T>(Guid id)
+        public async Task CreateRequestForCommandAsync<T>(Guid key)
         {
-            var exists = await ExistAsync(id);
+            var exists = await ExistAsync(key);
 
             var request = exists ?
-                throw new Exception($"Request with {id} already exists") :
+                throw new Exception($"Request with {key} already exists") :
                 new ClientRequest()
                 {
-                    Id = id,
+                    Key = key,
                     Name = typeof(T).Name,
                     Time = DateTime.UtcNow
                 };

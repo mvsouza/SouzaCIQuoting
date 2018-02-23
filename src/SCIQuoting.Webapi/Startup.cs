@@ -80,6 +80,7 @@ namespace SCIQuoting.Webapi
             RegisterEventBus(services);
 
             services.AddTransient<IInsuranceQuotingRequestRepository, InsuranceQuotingRequestRepository>();
+            services.AddTransient<IIsuranceBasePriceRepository, IsuranceBasePriceRepository>();
 
 
             var container = new ContainerBuilder();

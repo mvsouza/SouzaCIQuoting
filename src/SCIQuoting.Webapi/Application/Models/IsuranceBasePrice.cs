@@ -7,11 +7,11 @@ namespace SCIQuoting.Webapi.Application.Models
 {
     public class IsuranceBasePrice
     {
-        public VehicleType VehicleType { get; private set; }
-        public int ManufacturingYear { get; private set; }
-        public string Model { get; private set; }
-        public string Make { get; private set; }
-        public int Price { get; private set; }
+        public VehicleType VehicleType { get; set; }
+        public int ManufacturingYear { get; set; }
+        public string Model { get; set; }
+        public string Make { get; set; }
+        public int Price { get; set; }
 
         public IsuranceBasePrice(VehicleType vehicleType, int manufacturingYear, string model, string make, int price)
         {

@@ -8,6 +8,6 @@ namespace SCIQuoting.Webapi.Infrastructure.Repositories
 {
     public interface IIsuranceBasePriceRepository
     {
-        Task<IsuranceBasePrice> GetAsync();
+        Task<IEnumerable<IsuranceBasePrice>> GetAsync();
     }
 }
