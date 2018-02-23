@@ -1,6 +1,6 @@
 using System;
 
-namespace SCIQuoting.Webapi.Model{
+namespace SCIQuoting.Webapi.Application.Models{
     public enum Gender{
         Female = 1,
         Male = 2

@@ -15,9 +15,10 @@ using SCIQuoting.Webapi.Infrastructure.EventBus;
 using SCIQuoting.Webapi.Infrastructure.EventBus.Abstractions;
 using SCIQuoting.Webapi.Infrastructure.RabbitMQ;
 using SCIQuoting.Webapi.Infrastructure.Repositories;
-using SCIQuoting.Webapi.IntegrationEvents.EventHandling;
-using SCIQuoting.Webapi.IntegrationEvents.Events;
+using SCIQuoting.Webapi.Application.IntegrationEvents.EventHandling;
+using SCIQuoting.Webapi.Application.IntegrationEvents.Events;
 using Swashbuckle.AspNetCore.Swagger;
+using SCIQuoting.Webapi.Infrastructure.AutofacModules;
 
 namespace SCIQuoting.Webapi
 {
@@ -83,6 +84,7 @@ namespace SCIQuoting.Webapi
 
             var container = new ContainerBuilder();
             container.Populate(services);
+            container.RegisterModule(new MediatorModule());
             return new AutofacServiceProvider(container.Build());
         }
 

@@ -1,8 +1,9 @@
 namespace SCIQuoting.Webapi.Infrastructure.Infrastructure
 {
-    using SCIQuoting.Webapi.Model;
+    using SCIQuoting.Webapi.Application.Models;
     using Microsoft.Extensions.Options;
     using MongoDB.Driver;
+    using SCIQuoting.Webapi.Infrastructure.Idempotency;
 
     public class QuotingRequestContext
     {
@@ -21,6 +22,14 @@ namespace SCIQuoting.Webapi.Infrastructure.Infrastructure
             {
                 return _database.GetCollection<InsuranceQuotingRequest>("InsuranceQuotingRequest");
             }
-        }     
+        }
+
+        public IMongoCollection<ClientRequest> ClientRequests
+        {
+            get
+            {
+                return _database.GetCollection<ClientRequest>("ClientRequest");
+            }
+        }
     }
 }

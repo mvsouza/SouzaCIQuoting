@@ -5,7 +5,7 @@ namespace SCIQuoting.Webapi.Infrastructure.Repositories
     using MongoDB.Driver;
     using MongoDB.Driver.GeoJsonObjectModel;
     using SCIQuoting.Webapi.Infrastructure.Infrastructure;
-    using SCIQuoting.Webapi.Model;
+    using SCIQuoting.Webapi.Application.Models;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;

@@ -4,7 +4,7 @@ using Moq;
 using SCIQuoting.Webapi.Controllers;
 using SCIQuoting.Webapi.Infrastructure.EventBus.Abstractions;
 using SCIQuoting.Webapi.Infrastructure.Repositories;
-using SCIQuoting.Webapi.Model;
+using SCIQuoting.Webapi.Application.Models;
 using System;
 using Xunit;
 

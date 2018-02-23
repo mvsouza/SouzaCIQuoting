@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using SCIQuoting.Webapi.Model;
+using SCIQuoting.Webapi.Application.Models;
 
 namespace SCIQuoting.Webapi.Infrastructure.Repositories{
     public interface IInsuranceQuotingRequestRepository

@@ -1,3 +1,4 @@
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SCIQuoting.Webapi.Infrastructure.EventBus.Abstractions;
 using SCIQuoting.Webapi.Infrastructure.Repositories;
-using SCIQuoting.Webapi.Model;
-using SCIQuoting.Webapi.IntegrationEvents.Events;
+using SCIQuoting.Webapi.Application.Models;
+using SCIQuoting.Webapi.Application.IntegrationEvents.Events;
 
 namespace SCIQuoting.Webapi.Controllers
 {

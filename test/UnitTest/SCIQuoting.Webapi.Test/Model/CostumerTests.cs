@@ -1,8 +1,8 @@
 using System;
-using SCIQuoting.Webapi.Model;
+using SCIQuoting.Webapi.Application.Models;
 using Xunit;
 
-namespace SCIQuoting.Webapi.Test.Model{
+namespace SCIQuoting.Webapi.Test.Models{
     public class CostumerTest{
         [Fact]
         public void Male_Modifier()
