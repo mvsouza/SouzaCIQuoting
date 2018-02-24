@@ -8,7 +8,10 @@ before_build:
 build:
   project: SouzaCI.sln
   verbosity: minimal
-
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 test_script:
   - SonarQube.Scanner.MSBuild.exe begin /k:"SCIQuoting" /d:sonar.organization="mvsouza-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonar_login)" /d:sonar.cs.opencover.reportsPaths="$(Convert-Path .)\OpenCover.xml"
   - dotnet msbuild
