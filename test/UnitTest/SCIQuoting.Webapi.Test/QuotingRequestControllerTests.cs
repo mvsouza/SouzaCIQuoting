@@ -26,7 +26,7 @@ namespace SCIQuoting.Webapi.Test
         {
             var ctrl = new QuotingRequestController(_eventBus.Object, _repository.Object);
             ctrl.ControllerContext.HttpContext = _contextHttpMock.Object;
-            var actionResult = await ctrl.Post(new InsuranceQuotingRequest());
+            var actionResult = await ctrl.Post(new QuoteRequestViewModel());
             var res = Assert.IsType<OkObjectResult>(actionResult);
             Assert.IsAssignableFrom<Guid>(res.Value);
         }
