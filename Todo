@@ -1,7 +1,8 @@
 My tasks:
-  Api GET for Quote status
-  Api GET for the quote information
+  Functional testing
+  Describe better the APIS
+  Use cloudamqp and mongo lab
+  Create heroku deployment
   Create mongodb colletion for Base price table
   Create seeding for  Base price table
   Save the costumer on a new collection
-  Create heroku deployment

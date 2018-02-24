@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using SCIQuoting.Webapi.Application.IntegrationEvents.Events;
 using SCIQuoting.Webapi.Application.Commands;
 using MediatR;
+using SCIQuoting.Webapi.Application.Models;
 
 namespace SCIQuoting.Webapi.Application.IntegrationEvents.EventHandling
 {
@@ -23,8 +24,14 @@ namespace SCIQuoting.Webapi.Application.IntegrationEvents.EventHandling
         {
             var InsurenceQuoting = await _repository.GetAsync(@event.RequestKey);
             var veh = InsurenceQuoting.Vehicle;
-            var calculateRequest = new CalculateIsuranceBasePrice(veh.VehicleType, int.Parse(veh.ManufacturingYear), veh.Model, veh.Make);
-            var commandResult  = _mediator.Send(calculateRequest);
+            var calculateRequest = new CalculateIsuranceBasePrice(veh.VehicleType,int.Parse(veh.ManufacturingYear), veh.Model, veh.Make);
+            InsurenceQuoting.QuoteProcessStatus.ValueQuoted  = await _mediator.Send(calculateRequest);
+            InsurenceQuoting.QuoteProcessStatus.ValueQuoted*=(decimal)InsurenceQuoting.Costumer.Modifier;
+            InsurenceQuoting.QuoteProcessStatus.Status = QuoteStatus.Done;
+            _repository.AddOrUpdateAsync(InsurenceQuoting);
+            
+            
+        
         }
     }
 }

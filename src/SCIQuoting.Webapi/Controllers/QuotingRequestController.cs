@@ -22,14 +22,33 @@ namespace SCIQuoting.Webapi.Controllers
         }
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]InsuranceQuotingRequest value)
+        public async Task<IActionResult> Post([FromBody]QuoteRequestViewModel value)
         {
-            value.Key = Guid.NewGuid();
-            await _repository.AddOrUpdateAsync(value);
+            var newQuateRequest =  new InsuranceQuotingRequest(){
+                Key = Guid.NewGuid(),
+                Costumer = value.Costumer,
+                Vehicle =  value.Vehicle,
+                QuoteProcessStatus = new QuoteProcessStatus(){
+                    Status = QuoteStatus.Pendding
+                }
+            };
+
+            await _repository.AddOrUpdateAsync(newQuateRequest);
             _eventBus.Publish(new QuoteRequestedIntegrationEvent(
-                value.Key 
+                newQuateRequest.Key 
             ));
-            return Ok(value.Key );
+            return Ok(newQuateRequest.Key );
+        }
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]Guid key)
+        {
+            var quote = await _repository.GetAsync(key);
+            if(quote==null)
+                return StatusCode(404);
+            return Ok(new QuoteRequestViewModel(){
+                Vehicle = quote.Vehicle,
+                Costumer = quote.Costumer
+            });
         }
     }
 }

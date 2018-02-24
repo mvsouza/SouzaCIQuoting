@@ -11,7 +11,7 @@ build:
 test_script:
   - SonarQube.Scanner.MSBuild.exe begin /k:"SCIQuoting" /d:sonar.organization="mvsouza-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="4166b8e1572b323b2f7aaead72e39cbc0eb63ee5" /d:sonar.cs.opencover.reportsPaths="$(Convert-Path .)\OpenCover.xml"
   - dotnet msbuild
-  - OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full test\UnitTest\SCIQuoting.Webapi.Test\SCIQuoting.Webapi.Test.csproj" -filter:"+[*]* -[*.Test*]*" -oldStyle -output:"OpenCover.xml"
+  - OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full test\UnitTest\SCIQuoting.Webapi.Test\SCIQuoting.Webapi.Test.csproj" -filter:"+[*]* -[*.Test*]*" -oldStyle -output:"$(Convert-Path .)\OpenCover.xml"
   - SonarQube.Scanner.MSBuild.exe end /d:sonar.login="4166b8e1572b323b2f7aaead72e39cbc0eb63ee5"
   - codecov -f .\OpenCover.xml -t $(codecov_token)
  
