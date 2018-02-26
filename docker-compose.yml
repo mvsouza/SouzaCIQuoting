@@ -1,0 +1,9 @@
+version: '3.3'
+
+services: 
+    
+  souzaciquoting.webapi:
+    image: souzaciquoting.webapi:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/SCIQuoting.Webapi/Dockerfile

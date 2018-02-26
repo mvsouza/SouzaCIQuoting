@@ -1,0 +1,11 @@
+version: '3.3'
+
+services: 
+    
+  souzaciquoting.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - EventBusConnection:${EventBusConnection}
+      - ConnectionString:${ConnectionString}
+    ports:
+      - "80:80"
