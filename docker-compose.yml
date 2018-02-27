@@ -5,5 +5,5 @@ services:
   souzaciquoting.webapi:
     image: souzaciquoting.webapi:${TAG:-latest}
     build:
-      context: ./src/SCIQuoting.Webapi
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/SCIQuoting.Webapi/Dockerfile
