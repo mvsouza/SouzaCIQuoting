@@ -1,0 +1,18 @@
+language: csharp
+mono: none
+dotnet: 2.0.2
+services:
+  - docker
+script:
+ - dotnet test ./test/UnitTest/SCIQuoting.Webapi.Test/SCIQuoting.Webapi.Test.csproj
+deploy:
+  provider: heroku
+  api_key:
+    secure: bT1ngIG6bVyIWYd1ZYZWQVbN/E7i8FC4SPgYaU62WbB94DY/Ns+dqRuTpIujdgVOQWrqudWImneWK8q/SqZwpJ7RsUkIurnxpeMI3yxrkC48XDcHa+4H+99XpjbflI7ys1NboM6vXhCqCqTCxasCRGv4OAFUvqYfDjqLLerCnxklQJRHMROK0oRqIh1xBUs+oC7cgi9lkEbi9NnBlwkaakVL4BUb3+Wc2gCAB82iuSyImI+a0Wy4C6eo+GDRu9+T74KYmgcvxbHqrKFsShp739XFOkbq4tabE2iqdlQUtzCnafeA6ge4bcvsdiyxCGeLzQQvYccNQqO5Srw+w2bhVHNQemZv3eMaC4oM4y1Yf3MVSdv+RG8wQT1KTFBl4ss+VXPW7roT/PPjbWGpGCNNhHYPf98nRjS1UkgDF8DPegUwDfFnlZPSIuZUVTUCVTdsh8UKq/oUKx1A17/LomFgY8s6YMMSu4vEaK4aDQfqJs45kiWmXZIR9VJWvKYLYtRghDwcbZVABO89l8TFqR3R8ohg7cU+Lhcmo6q3gca48hp4o5Cu5N8XuKLmSMKeJKKdU2uq9JeYrZ5jeFxzD57awDq2v4xqyAmBpvMeaCIzNzZhHWCqAxZR8TsjVZpGhc+Xm/MAaiOIR8DAnLM/lw8Epv1A5JXsjELMlG5uiTflm4Q=
+  on:
+    branch: master
+  run:
+    - "docker-compose build --force-rm"
+    - "docker tag souzaciquoting.webapi registry.heroku.com/souzaciquoting.webapi/web"
+    - "docker push registry.heroku.com/souzaciquoting.webapi/web"
+    - "docker login --username=_ --password=$(api_key) registry.heroku.com"
