@@ -7,6 +7,8 @@ script:
   - dotnet test ./test/UnitTest/SCIQuoting.Webapi.Test/SCIQuoting.Webapi.Test.csproj
 deploy:
   provider: heroku
+  on:
+    branch: master
   run:
     - "docker-compose build --force-rm"
     - "docker login --username=_ --password=$(api_key) registry.heroku.com"
