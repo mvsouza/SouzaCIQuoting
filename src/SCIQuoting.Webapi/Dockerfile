@@ -1,7 +1,8 @@
 FROM microsoft/aspnetcore:2.0.3 AS base
 WORKDIR /app
-EXPOSE 80
-ENV ASPNETCORE_URLS http://+:80
+EXPOSE ${PORT:-80}
+ENV PORT ${PORT:-80}
+ENV ASPNETCORE_URLS http://+:${PORT:-80}
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
