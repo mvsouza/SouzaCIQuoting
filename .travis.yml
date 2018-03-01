@@ -5,12 +5,5 @@ services:
   - docker
 script:
   - dotnet test ./test/UnitTest/SCIQuoting.Webapi.Test/SCIQuoting.Webapi.Test.csproj
-deploy:
-  provider: heroku
-  on:
-    branch: master
-  run:
-    - "docker-compose build --force-rm"
-    - "docker login --username=_ --password=$(api_key) registry.heroku.com"
-    - "docker tag souzaciquoting.webapi registry.heroku.com/souzaciquoting/web"
-    - "docker push registry.heroku.com/souzaciquoting/web"
+after_success:
+  - test "$TRAVIS_BRANCH" = "master" && sh scripts/deploy_heroku.sh
