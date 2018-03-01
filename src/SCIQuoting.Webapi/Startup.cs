@@ -36,6 +36,7 @@ namespace SCIQuoting.Webapi
         {
             services.Configure<QuotingSettings>(Configuration);
 
+            services.AddMemoryCache();
             services.AddMvc();
 
             
@@ -44,10 +45,7 @@ namespace SCIQuoting.Webapi
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
                 var factory = new ConnectionFactory()
                 {
-                    //HostName = Configuration["EventBusConnection"],
-                    //Port = int.Parse(Configuration["EventBusPort"]),
-                    //VirtualHost = Configuration["VHost"]
-                    Uri = new Uri(Configuration["EventBusConnection"])//.Replace("amqp://", "amqps://"))
+                    Uri = new Uri(Configuration["EventBusConnection"])
                 };
                 if (!string.IsNullOrEmpty(Configuration["EventBusUserName"]))
                 {
