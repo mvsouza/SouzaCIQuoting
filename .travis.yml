@@ -6,4 +6,4 @@ services:
 script:
   - dotnet test ./test/UnitTest/SCIQuoting.Webapi.Test/SCIQuoting.Webapi.Test.csproj
 after_success:
-  - test "$TRAVIS_BRANCH" = "master" && sh .travis/deploy_heroku.sh
+  - test "$TRAVIS_BRANCH" = "master" && sh scripts/deploy_heroku.sh
