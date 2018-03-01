@@ -4,7 +4,7 @@ using MongoDB.Bson;
 
 namespace SCIQuoting.Webapi.Application.Models{
     public class QuoteRequestViewModel{
-        public Costumer Costumer { get; set; }
+        public Customer Customer { get; set; }
         public Vehicle Vehicle { get; set; }
     }
 }

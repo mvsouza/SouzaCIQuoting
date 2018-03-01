@@ -26,7 +26,7 @@ namespace SCIQuoting.Webapi.Application.IntegrationEvents.EventHandling
             var veh = InsurenceQuoting.Vehicle;
             var calculateRequest = new CalculateIsuranceBasePrice(veh.VehicleType,int.Parse(veh.ManufacturingYear), veh.Model, veh.Make);
             InsurenceQuoting.QuoteProcessStatus.ValueQuoted  = await _mediator.Send(calculateRequest);
-            InsurenceQuoting.QuoteProcessStatus.ValueQuoted*=(decimal)InsurenceQuoting.Costumer.Modifier;
+            InsurenceQuoting.QuoteProcessStatus.ValueQuoted*=(decimal)InsurenceQuoting.Customer.Modifier;
             InsurenceQuoting.QuoteProcessStatus.Status = QuoteStatus.Done;
             _repository.AddOrUpdateAsync(InsurenceQuoting);
             

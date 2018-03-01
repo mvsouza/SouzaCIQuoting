@@ -26,7 +26,7 @@ namespace SCIQuoting.Webapi.Controllers
         {
             var newQuateRequest =  new InsuranceQuotingRequest(){
                 Key = Guid.NewGuid(),
-                Costumer = value.Costumer,
+                Customer = value.Customer,
                 Vehicle =  value.Vehicle,
                 QuoteProcessStatus = new QuoteProcessStatus(){
                     Status = QuoteStatus.Pendding
@@ -47,7 +47,7 @@ namespace SCIQuoting.Webapi.Controllers
                 return StatusCode(404);
             return Ok(new QuoteRequestViewModel(){
                 Vehicle = quote.Vehicle,
-                Costumer = quote.Costumer
+                Customer = quote.Customer
             });
         }
     }
