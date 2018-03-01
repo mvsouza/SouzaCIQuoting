@@ -1,6 +1,8 @@
 FROM microsoft/aspnetcore:2.0.3 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE ${PORT:-80}
+ENV PORT ${PORT:-80}
+ENV ASPNETCORE_URLS http://+:${PORT:-80}
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
@@ -14,4 +16,5 @@ RUN dotnet publish --no-restore -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "SCIQuoting.Webapi.dll"]
+
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet SCIQuoting.Webapi.dll
