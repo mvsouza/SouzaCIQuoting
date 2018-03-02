@@ -5,9 +5,9 @@ namespace SCIQuoting.Webapi.Application.Models{
         Female = 1,
         Male = 2
     }
-    public class Costumer{
+    public class Customer{
 
-        public Costumer(int ssn, string name, int gender, DateTime birthdate, Address address, string email, string phoneNumber)
+        public Customer(int ssn, string name, int gender, DateTime birthdate, Address address, string email, string phoneNumber)
         {
             this.SSN = ssn;
             this.Name = Name;

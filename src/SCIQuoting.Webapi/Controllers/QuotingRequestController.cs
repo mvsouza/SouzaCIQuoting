@@ -8,6 +8,7 @@ using SCIQuoting.Webapi.Infrastructure.EventBus.Abstractions;
 using SCIQuoting.Webapi.Infrastructure.Repositories;
 using SCIQuoting.Webapi.Application.Models;
 using SCIQuoting.Webapi.Application.IntegrationEvents.Events;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace SCIQuoting.Webapi.Controllers
 {
@@ -16,39 +17,56 @@ namespace SCIQuoting.Webapi.Controllers
     {
         private readonly IEventBus _eventBus;
         private readonly IInsuranceQuotingRequestRepository _repository;
-        public QuotingRequestController(IEventBus _eventBus, IInsuranceQuotingRequestRepository _repository){
-            this._eventBus = _eventBus;
-            this._repository = _repository;
+        private IMemoryCache _cache;
+
+        public QuotingRequestController(IEventBus eventBus, IInsuranceQuotingRequestRepository repository, IMemoryCache memoryCache)
+        {
+            this._eventBus = eventBus;
+            this._repository = repository;
+            this._cache = memoryCache;
         }
         // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]QuoteRequestViewModel value)
         {
-            var newQuateRequest =  new InsuranceQuotingRequest(){
+            var newQuateRequest = new InsuranceQuotingRequest()
+            {
                 Key = Guid.NewGuid(),
-                Costumer = value.Costumer,
-                Vehicle =  value.Vehicle,
-                QuoteProcessStatus = new QuoteProcessStatus(){
+                Customer = value.Customer,
+                Vehicle = value.Vehicle,
+                QuoteProcessStatus = new QuoteProcessStatus()
+                {
                     Status = QuoteStatus.Pendding
                 }
             };
 
             await _repository.AddOrUpdateAsync(newQuateRequest);
             _eventBus.Publish(new QuoteRequestedIntegrationEvent(
-                newQuateRequest.Key 
+                newQuateRequest.Key
             ));
-            return Ok(newQuateRequest.Key );
+            _cache.Set(newQuateRequest.Key, newQuateRequest);
+            return Ok(newQuateRequest.Key);
         }
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]Guid key)
         {
-            var quote = await _repository.GetAsync(key);
-            if(quote==null)
-                return StatusCode(404);
-            return Ok(new QuoteRequestViewModel(){
+            QuoteRequestViewModel quote = await GetQuoteRequestAsync(key);
+            if(quote ==  null)
+                    return StatusCode(404);
+            return Ok(quote);
+        }
+        private async Task<QuoteRequestViewModel> GetQuoteRequestAsync(Guid key)
+        {
+            InsuranceQuotingRequest quote;
+            if (!_cache.TryGetValue(key, out quote)) {
+                quote = await _repository.GetAsync(key);
+                _cache.Set(key, quote);
+            }
+            return new QuoteRequestViewModel()
+            {
                 Vehicle = quote.Vehicle,
-                Costumer = quote.Costumer
-            });
+                Customer = quote.Customer
+            };
         }
     }
 }

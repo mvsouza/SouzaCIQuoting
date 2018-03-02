@@ -3,72 +3,72 @@ using SCIQuoting.Webapi.Application.Models;
 using Xunit;
 
 namespace SCIQuoting.Webapi.Test.Models{
-    public class CostumerTest{
+    public class CustomerTest{
         [Fact]
         public void Male_Modifier()
         {
             //Given
-            var cost = new Costumer(1,
+            var cust = new Customer(1,
                 "Bolinha",
                 2,
                 DateTime.Now.AddYears(-17),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1.5);
+            Assert.Equal(cust.Modifier,1.5);
 
-            cost = new Costumer(1,
+            cust = new Customer(1,
                 "Bolinha",
                 2,
                 DateTime.Now.AddYears(-26),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1.2);
-            cost = new Costumer(1,
+            Assert.Equal(cust.Modifier,1.2);
+            cust = new Customer(1,
                 "Bolinha",
                 2,
                 DateTime.Now.AddYears(-36),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1);
-            cost = new Costumer(1,
+            Assert.Equal(cust.Modifier,1);
+            cust = new Customer(1,
                 "Bolinha",
                 2,
                 DateTime.Now.AddYears(-61),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1.3);
+            Assert.Equal(cust.Modifier,1.3);
         }
         [Fact]
         public void Female_Modifier()
         {
-            var cost = new Costumer(1,
+            var cust = new Customer(1,
                 "Bolinha",
                 1,
                 DateTime.Now.AddYears(-17),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1.4);
-            cost = new Costumer(1,
+            Assert.Equal(cust.Modifier,1.4);
+            cust = new Customer(1,
                 "Bolinha",
                 1,
                 DateTime.Now.AddYears(-26),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1);
-            cost = new Costumer(1,
+            Assert.Equal(cust.Modifier,1);
+            cust = new Customer(1,
                 "Bolinha",
                 1,
                 DateTime.Now.AddYears(-61),
                 new Address(),
                 "",
                 "101010101");
-            Assert.Equal(cost.Modifier,1.2);
+            Assert.Equal(cust.Modifier,1.2);
         }
     }
 }
